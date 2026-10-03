@@ -1,0 +1,138 @@
+[gd_scene load_steps=11 format=3 uid="uid://d1tk3xi631jt3"]
+
+[ext_resource type="Texture2D" uid="uid://14hwyt4coyc2" path="res://assest/bg g.jpg" id="1_2n61g"]
+[ext_resource type="Script" uid="uid://dtox1h6ohfquu" path="res://minigame_1.gd" id="1_wh6qq"]
+[ext_resource type="PackedScene" uid="uid://ckemy0upjpia0" path="res://player.tscn" id="2_gi7k6"]
+[ext_resource type="Texture2D" uid="uid://bumdegahrbs4g" path="res://assest/main menu/hrt.png" id="3_0hvi2"]
+[ext_resource type="Script" uid="uid://dmv5irnkj2610" path="res://garlic.gd" id="3_r6gmb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tfs2c"]
+size = Vector2(40.63897, 40)
+
+[sub_resource type="Animation" id="Animation_r6gmb"]
+resource_name = "floating"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 11.99)]
+}
+
+[sub_resource type="Animation" id="Animation_0hvi2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wh6qq"]
+_data = {
+&"RESET": SubResource("Animation_0hvi2"),
+&"floating": SubResource("Animation_r6gmb")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0hvi2"]
+
+[node name="minigame_1" type="Node2D"]
+position = Vector2(1, 225)
+script = ExtResource("1_wh6qq")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(300, 0)
+autoscroll = Vector2(30, 0)
+
+[node name="Background" type="TextureRect" parent="Parallax2D"]
+offset_left = 1.0
+offset_top = -226.0
+offset_right = 430.0
+offset_bottom = 14.0
+scale = Vector2(2.6778827, 2.7020075)
+texture = ExtResource("1_2n61g")
+
+[node name="Platform1" type="StaticBody2D" parent="."]
+position = Vector2(-6.999999, 253)
+scale = Vector2(31.417316, 2.43531)
+
+[node name="ColorRect" type="ColorRect" parent="Platform1"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.1882353, 0.6039216, 0.32156864, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1"]
+position = Vector2(19.680513, 20.000015)
+scale = Vector2(1, 1.0000001)
+shape = SubResource("RectangleShape2D_tfs2c")
+one_way_collision = true
+
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(273, 177.00002)
+scale = Vector2(14.665692, 0.9142464)
+
+[node name="ColorRect" type="ColorRect" parent="Platform2"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.9167546, 0.7804529, 0.16126186, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
+position = Vector2(19.680513, 20.000015)
+scale = Vector2(1, 1.0000001)
+shape = SubResource("RectangleShape2D_tfs2c")
+one_way_collision = true
+
+[node name="Platform3" type="StaticBody2D" parent="."]
+position = Vector2(832, 94)
+scale = Vector2(14.665692, 0.9142464)
+
+[node name="ColorRect" type="ColorRect" parent="Platform3"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.91764706, 0.78039217, 0.16078432, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3"]
+position = Vector2(19.680513, 20.000015)
+scale = Vector2(1, 1.0000001)
+shape = SubResource("RectangleShape2D_tfs2c")
+one_way_collision = true
+
+[node name="Player" parent="." instance=ExtResource("2_gi7k6")]
+position = Vector2(84, 142)
+scale = Vector2(4.363189, 4.2793446)
+
+[node name="Garlic" type="Node2D" parent="."]
+script = ExtResource("3_r6gmb")
+
+[node name="Garlic" type="TextureRect" parent="Garlic"]
+offset_left = 1033.0
+offset_top = -26.99999
+offset_right = 1383.0
+offset_bottom = 323.0
+scale = Vector2(0.475051, 0.475051)
+texture = ExtResource("3_0hvi2")
+
+[node name="Animation" type="AnimationPlayer" parent="Garlic/Garlic"]
+libraries = {
+&"": SubResource("AnimationLibrary_wh6qq")
+}
+autoplay = "floating"
+
+[node name="Area2D" type="Area2D" parent="Garlic"]
+position = Vector2(1117, 46)
+scale = Vector2(-5.1707296, 5.2954497)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Garlic/Area2D"]
+shape = SubResource("CircleShape2D_0hvi2")
